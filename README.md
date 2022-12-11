@@ -1,2 +1,2 @@
 # qscondominio-backend
- Backend (API) using PHP (Lumen) and MySQL for condominium management
+ Backend (API) using PHP (Slim) and MySQL for condominium management
