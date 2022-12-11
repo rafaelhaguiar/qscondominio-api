@@ -5,7 +5,7 @@ namespace App\DAO;
 use App\DAO\DBHelper;
 use App\Models\UserModel;
 
-class UserssDAO extends DBHelper
+class UsersDAO extends DBHelper
 {
     public function __construct() {
         parent::__construct();
@@ -26,13 +26,22 @@ class UserssDAO extends DBHelper
         ]);
     }
 
-    public function getUserByEmail(string $email)
+    public function getUserByEmail(string $email): ?UserModel
     {
         $statement = $this->pdo->prepare('SELECT id, name, email, password from tb_users where email = :email');
         $statement->bindParam('email', $email);
         $statement->execute();
         $users = $statement->fetchAll(\PDO::FETCH_ASSOC);
-        return count($users) === 0 ? [] : $users[0];
+       
+        if (count($users) > 0) {
+            $user = new UserModel();
+            $user->setId([$users[0]['id']])
+            ->setName($users[0]['name'])
+            ->setEmail($users[0]['email'])
+            ->setPassword($users[0]['password']);        
+            return $user;
+        }
+        return null;
     }
 
 

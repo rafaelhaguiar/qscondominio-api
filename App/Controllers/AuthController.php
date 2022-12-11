@@ -2,8 +2,12 @@
 
 namespace App\Controllers;
 
+use App\DAO\UsersDAO;
 use Slim\Http\Request as Request;
 use Slim\Http\Response as Response;
+use Firebase\JWT\JWT;
+
+
 
 final class AuthController
 {
@@ -11,8 +15,16 @@ final class AuthController
     {
 
         $data = $request->getParsedBody();
+        $email = $data['email'];
+        $password = $data['password'];
 
-        return $response;
+        $userDao = new UsersDAO();
+        $user = $userDao->getUserByEmail($email);
+
+        if (is_null($user) || !password_verify($password, $user->getPassword())) {
+            return $response->withStatus(401);
+        }
+       return $response;
 
     }
 }
