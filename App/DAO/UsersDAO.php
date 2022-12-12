@@ -22,7 +22,7 @@ class UsersDAO extends DBHelper
         $statement->execute([
             'name' => $user->getName(),
             'email' => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'password' => password_hash($user->getPassword(), PASSWORD_ARGON2I),
         ]);
     }
 
@@ -34,15 +34,15 @@ class UsersDAO extends DBHelper
         $users = $statement->fetchAll(\PDO::FETCH_ASSOC);
        
         if (count($users) > 0) {
+
             $user = new UserModel();
-            $user->setId([$users[0]['id']])
-            ->setName($users[0]['name'])
-            ->setEmail($users[0]['email'])
-            ->setPassword($users[0]['password']);        
+            $user->setId($users[0]['id']);
+            $user->setName($users[0]['name']);
+            $user->setEmail($users[0]['email']);
+            $user->setPassword($users[0]['password']);               
             return $user;
         }
         return null;
     }
-
 
 }
