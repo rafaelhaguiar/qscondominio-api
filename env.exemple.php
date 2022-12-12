@@ -10,3 +10,4 @@ putenv('DB_QS_CONDOMINIO_PORT=3306');
 putenv('DB_QS_CONDOMINIO_DBNAME=db_qscondominio');
 putenv('DB_QS_CONDOMINIO_USER=root');
 putenv('DB_QS_CONDOMINIO_PASSWORD=');
+putenv('JWT_SECRET_KEY=');

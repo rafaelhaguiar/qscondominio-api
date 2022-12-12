@@ -38,7 +38,7 @@ class OrdersDAO extends DBHelper
 
     public function getAllOrders() : array
     {
-        $orders = $this->pdo->query("SELECT id, unit_id, sender, recipient, receiving_date FROM tb_orders WHERE building_id = 10 limit 50")->fetchAll(\PDO::FETCH_ASSOC);
+        $orders = $this->pdo->query("SELECT id, unit_id, sender, recipient, receiving_date FROM tb_orders WHERE building_id = 20 limit 50")->fetchAll(\PDO::FETCH_ASSOC);
         return $orders;
     }
 
