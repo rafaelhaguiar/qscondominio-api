@@ -12,7 +12,7 @@ class UnitDAO extends DBHelper
         parent::__construct();
     }
 
-    public function createUnit(UnitModel $unitModel): void
+    public function createUnit(UnitModel $unitModel): int
     {
 
         $query = "INSERT INTO tab_units(id, name) VALUES (:id, :name)";
@@ -20,6 +20,8 @@ class UnitDAO extends DBHelper
         $stmt->bindValue(':id', $unitModel->getId(), PDO::PARAM_STR);
         $stmt->bindValue(':name', $unitModel->getName(), PDO::PARAM_STR);
         $stmt->execute();
+        return $this->pdo->lastInsertId();
+       
     }
 
     public function selectUnits(int $userId): void
